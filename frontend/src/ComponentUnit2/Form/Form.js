@@ -14,14 +14,16 @@ const Form = ({ showRegister }) => {
 		<div>
 			<h1>{showRegister ? 'Register ' : 'Login '}Form</h1>
 			<StyledForm>
-				<input type='text' autoFocus />
+				<label for='name'>Name</label>
+				<input name='name' type='text' autoFocus />
 				{showRegister && (
-					<label>
-						Email
-						<input type='email' />
-					</label>
+					<>
+						<label for='email'>Email</label>
+						<input name='email' type='email' />
+					</>
 				)}
-				<input type='password' />
+				<label for='password'>Password</label>
+				<input name='password' type='password' />
 			</StyledForm>
 		</div>
 	);
