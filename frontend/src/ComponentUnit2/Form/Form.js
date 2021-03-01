@@ -1,6 +1,7 @@
 import React from 'react';
 import StyledForm from '../StyledComponents/StyledForm';
 import StyledButton from '../StyledComponents/StyledButton';
+import StyledError from '../StyledComponents/StyledError';
 
 const Form = ({
 	showRegister,
@@ -9,6 +10,8 @@ const Form = ({
 	loginFormValues,
 	registerFormValues,
 	handleChange,
+	loginErrors,
+	registerErrors,
 }) => {
 	const onChange = (e) => {
 		const { name, value } = e.target;
@@ -32,6 +35,9 @@ const Form = ({
 					onChange={onChange}
 					value={showRegister ? registerFormValues.name : loginFormValues.name}
 				/>
+				<StyledError>
+					{showRegister ? registerErrors.name : loginErrors.name}
+				</StyledError>
 				{/* Optionally show register fields */}
 				{showRegister && (
 					<>
@@ -42,6 +48,7 @@ const Form = ({
 							onChange={onChange}
 							value={registerFormValues.email}
 						/>
+						<StyledError>{registerErrors.email}</StyledError>
 					</>
 				)}
 				<label for='password'>Password</label>
@@ -55,6 +62,9 @@ const Form = ({
 							: loginFormValues.password
 					}
 				/>
+				<StyledError>
+					{showRegister ? registerErrors.password : loginErrors.password}
+				</StyledError>
 				{/* Optionally show register fields */}
 				{showRegister && (
 					<>
@@ -65,6 +75,7 @@ const Form = ({
 							onChange={onChange}
 							value={registerFormValues.confirmPassword}
 						/>
+						<StyledError>{registerErrors.confirmPassword}</StyledError>
 					</>
 				)}
 				<StyledButton>{showRegister ? 'Register' : 'Login'}</StyledButton>

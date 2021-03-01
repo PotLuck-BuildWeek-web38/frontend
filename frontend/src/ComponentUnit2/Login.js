@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import * as yup from 'yup';
+import axios from 'axios';
 import Form from './Form/Form';
 import StyledContainer from './StyledComponents/StyledContainer';
+
+import loginSchema from './validation/loginSchema';
+import registerSchema from './validation/registerSchema';
 
 const initialLoginFormState = {
 	name: '',
@@ -13,19 +18,53 @@ const initialRegisterFormState = {
 	confirmPassword: '',
 };
 
+const initialLoginErrors = {
+	name: '',
+	password: '',
+};
+const initialRegisterErrors = {
+	name: '',
+	email: '',
+	password: '',
+	confirmPassword: '',
+};
+
+const initialDisabled = true;
+
 const Login = (props) => {
 	const [showRegister, setShowRegister] = useState(false);
 	const [registerFormValues, setRegisterFormValues] = useState(
 		initialRegisterFormState
 	);
 	const [loginFormValues, setLoginFormValues] = useState(initialLoginFormState);
+	const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
+	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
+	const [disabled, setDisabled] = useState(initialDisabled);
 
 	const handleLoginSubmit = () => {};
 	const handleRegisterSubmit = () => {};
 	const handleChange = (name, value) => {
 		if (showRegister) {
+			yup
+				.reach(registerSchema, name)
+				.validate(value)
+				.then(() => {
+					setRegisterErrors({ ...registerErrors, [name]: '' });
+				})
+				.catch((err) => {
+					setRegisterErrors({ ...registerErrors, [name]: err.errors });
+				});
 			setRegisterFormValues({ ...registerFormValues, [name]: value });
 		} else {
+			yup
+				.reach(loginSchema, name)
+				.validate(value)
+				.then(() => {
+					setLoginErrors({ ...loginErrors, [name]: '' });
+				})
+				.catch((err) => {
+					setLoginErrors({ ...loginErrors, [name]: err.errors });
+				});
 			setLoginFormValues({ ...loginFormValues, [name]: value });
 		}
 	};
@@ -42,6 +81,8 @@ const Login = (props) => {
 				loginFormValues={loginFormValues}
 				registerFormValues={registerFormValues}
 				handleChange={handleChange}
+				loginErrors={loginErrors}
+				registerErrors={registerErrors}
 			/>
 			<a href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
