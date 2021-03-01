@@ -1,17 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const StyledForm = styled.form`
-	display: flex;
-	flex-direction: column;
-	margin: 10px auto;
-	align-items: center;
-	width: 50%;
-`;
+import StyledForm from '../StyledComponents/StyledForm';
+import StyledButton from '../StyledComponents/StyledButton';
 
 const Form = ({ showRegister }) => {
 	return (
-		<div>
+		<>
 			<h1>{showRegister ? 'Register ' : 'Login '}Form</h1>
 			<StyledForm>
 				<label for='name'>Name</label>
@@ -24,8 +17,15 @@ const Form = ({ showRegister }) => {
 				)}
 				<label for='password'>Password</label>
 				<input name='password' type='password' />
+				{showRegister && (
+					<>
+						<label for='confirmEmail'>Confirm Password</label>
+						<input name='confirmEmail' type='password' />
+					</>
+				)}
+				<StyledButton>{showRegister ? 'Register' : 'Login'}</StyledButton>
 			</StyledForm>
-		</div>
+		</>
 	);
 };
 

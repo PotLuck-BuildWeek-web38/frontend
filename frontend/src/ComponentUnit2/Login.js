@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Form from './Form/Form';
+import StyledContainer from './StyledComponents/StyledContainer';
 
 const Login = (props) => {
 	const [showRegister, setShowRegister] = useState(false);
@@ -8,13 +9,12 @@ const Login = (props) => {
 		setShowRegister(!showRegister);
 	};
 	return (
-		<div>
+		<StyledContainer>
 			<Form showRegister={showRegister} />
 			<a href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
 			</a>
-			{/* <button onClick={toggleShowRegister}>register</button> */}
-		</div>
+		</StyledContainer>
 	);
 };
 
