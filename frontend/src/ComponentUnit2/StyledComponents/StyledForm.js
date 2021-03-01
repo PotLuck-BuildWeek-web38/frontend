@@ -7,11 +7,12 @@ const StyledForm = styled.form`
 	align-items: center;
 	text-align: left;
 	width: 50%;
-	/* height: 30vh; */
 	font-size: larger;
 	margin-bottom: 15px;
 	& input {
 		font-size: large;
+		border-radius: 5px;
+		padding-left: 1.5%;
 		width: 35%;
 		height: 12%;
 		margin-bottom: 20px;
