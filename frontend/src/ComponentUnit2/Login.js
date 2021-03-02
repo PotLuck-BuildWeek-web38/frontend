@@ -6,6 +6,7 @@ import StyledContainer from './StyledComponents/StyledContainer';
 
 import loginSchema from './validation/loginSchema';
 import registerSchema from './validation/registerSchema';
+import { useHistory } from 'react-router-dom';
 
 const initialLoginFormState = {
 	name: '',
@@ -41,9 +42,13 @@ const Login = (props) => {
 	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
+	const history = useHistory();
 	const handleLoginSubmit = () => {
 		console.log('login submit logic');
-		const newLogin = {};
+		// const newLogin = {
+		// 	username: loginFormValues.name,
+		// 	password: loginFormValues.password,
+		// };
 		axios
 			.post(
 				'https://tt11-potluckplanner.herokuapp.com/login',
@@ -58,6 +63,7 @@ const Login = (props) => {
 			.then((res) => {
 				console.log(res.data);
 				localStorage.setItem('token', res.data.access_token);
+				history.push('/potluck');
 			})
 			.catch((err) => console.log(err));
 	};
