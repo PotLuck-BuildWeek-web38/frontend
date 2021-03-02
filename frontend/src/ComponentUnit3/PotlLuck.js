@@ -1,5 +1,5 @@
 import react from 'react';
-import './css/potluck.css';
+// import './css/potluck.css';
 
 const PotLuck = () => {
 
