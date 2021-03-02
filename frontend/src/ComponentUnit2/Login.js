@@ -41,8 +41,29 @@ const Login = (props) => {
 	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
-	const handleLoginSubmit = () => {};
-	const handleRegisterSubmit = () => {};
+	const handleLoginSubmit = () => {
+		console.log('login submit logic');
+		const newLogin = {};
+		axios
+			.post(
+				'https://tt11-potluckplanner.herokuapp.com/login',
+				`grant_type=password&username=${loginFormValues.name}&password=${loginFormValues.password}`,
+				{
+					headers: {
+						Authorization: `Basic ${btoa('lambda-client:lambda-secret')}`,
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res.data);
+				localStorage.setItem('token', res.data.access_token);
+			})
+			.catch((err) => console.log(err));
+	};
+	const handleRegisterSubmit = () => {
+		console.log('register submit logic');
+	};
 	const handleChange = (name, value) => {
 		if (showRegister) {
 			yup
