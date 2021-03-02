@@ -46,7 +46,7 @@ const Login = (props) => {
 		const newLogin = {};
 		axios
 			.post(
-				'https://tt11-potluckplanner.herokuapp.com/login',
+				'https://potluck-tt11.herokuapp.com/login',
 				`grant_type=password&username=${loginFormValues.name}&password=${loginFormValues.password}`,
 				{
 					headers: {
