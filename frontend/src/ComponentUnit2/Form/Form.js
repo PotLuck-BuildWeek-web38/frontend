@@ -21,8 +21,11 @@ const Form = ({
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (showRegister) handleRegisterSubmit();
-		else handleLoginSubmit();
+		if (showRegister) {
+			handleRegisterSubmit();
+		} else {
+			handleLoginSubmit();
+		}
 	};
 
 	return (
