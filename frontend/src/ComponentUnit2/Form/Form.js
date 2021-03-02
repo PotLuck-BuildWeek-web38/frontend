@@ -29,7 +29,7 @@ const Form = ({
 		<>
 			<h1>{showRegister ? 'Register ' : 'Login '}Form</h1>
 			<StyledForm onSubmit={onSubmit}>
-				<label for='name'>Name</label>
+				<label htmlFor='name'>Name</label>
 				<input
 					name='name'
 					type='text'
@@ -43,7 +43,7 @@ const Form = ({
 				{/* Optionally show register fields */}
 				{showRegister && (
 					<>
-						<label for='email'>Email</label>
+						<label htmlFor='email'>Email</label>
 						<input
 							name='email'
 							type='email'
@@ -53,7 +53,7 @@ const Form = ({
 						<StyledError>{registerErrors.email}</StyledError>
 					</>
 				)}
-				<label for='password'>Password</label>
+				<label htmlFor='password'>Password</label>
 				<input
 					name='password'
 					type='password'
@@ -68,9 +68,9 @@ const Form = ({
 					{showRegister ? registerErrors.password : loginErrors.password}
 				</StyledError>
 				{/* Optionally show register fields */}
-				{showRegister && (
+				{/* 	{showRegister && (
 					<>
-						<label for='confirmPassword'>Confirm Password</label>
+						<label htmlFor='confirmPassword'>Confirm Password</label>
 						<input
 							name='confirmPassword'
 							type='password'
@@ -79,7 +79,7 @@ const Form = ({
 						/>
 						<StyledError>{registerErrors.confirmPassword}</StyledError>
 					</>
-				)}
+				)} */}
 				<StyledButton>{showRegister ? 'Register' : 'Login'}</StyledButton>
 			</StyledForm>
 		</>
