@@ -12,6 +12,7 @@ const Form = ({
 	handleChange,
 	loginErrors,
 	registerErrors,
+	disabled,
 }) => {
 	const onChange = (e) => {
 		const { name, value } = e.target;
@@ -30,7 +31,7 @@ const Form = ({
 
 	return (
 		<>
-			<h1>{showRegister ? 'Register ' : 'Login '}Form</h1>
+			<h1>{showRegister ? 'Register ' : 'Login '}</h1>
 			<StyledForm onSubmit={onSubmit}>
 				<label htmlFor='name'>Name</label>
 				<input
@@ -83,7 +84,9 @@ const Form = ({
 						<StyledError>{registerErrors.confirmPassword}</StyledError>
 					</>
 				)} */}
-				<StyledButton>{showRegister ? 'Register' : 'Login'}</StyledButton>
+				<StyledButton disabledStyle={disabled}>
+					{showRegister ? 'Register' : 'Login'}
+				</StyledButton>
 			</StyledForm>
 		</>
 	);

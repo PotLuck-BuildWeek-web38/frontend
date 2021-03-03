@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import Form from './Form/Form';
 import StyledContainer from './StyledComponents/StyledContainer';
+import StyledLink from './StyledComponents/StyledLink';
 
 import loginSchema from './validation/loginSchema';
 import registerSchema from './validation/registerSchema';
@@ -108,6 +109,17 @@ const Login = (props) => {
 	const toggleShowRegister = () => {
 		setShowRegister(!showRegister);
 	};
+
+	useEffect(() => {
+		if (showRegister) {
+			console.log('checking');
+			registerSchema
+				.isValid(registerFormValues)
+				.then((valid) => setDisabled(!valid));
+		} else {
+			loginSchema.isValid(loginFormValues).then((valid) => setDisabled(!valid));
+		}
+	}, [loginFormValues, registerFormValues, showRegister]);
 	return (
 		<StyledContainer>
 			<Form
@@ -119,10 +131,11 @@ const Login = (props) => {
 				handleChange={handleChange}
 				loginErrors={loginErrors}
 				registerErrors={registerErrors}
+				disabled={disabled}
 			/>
-			<a href='#' onClick={toggleShowRegister}>
+			<StyledLink href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
-			</a>
+			</StyledLink>
 		</StyledContainer>
 	);
 };
