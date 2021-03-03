@@ -2,14 +2,23 @@ import styled from 'styled-components';
 
 const StyledButton = styled.button`
 	border: none;
+	min-width: 80px;
+	min-height: 45px;
 	border-radius: 5px;
 	padding: 2% 3%;
 	font-size: large;
-	background-color: #333333;
-	color: #ccc;
+	background-color: ${(props) =>
+		props.disabledStyle
+			? props.theme.primaryColorDisabled
+			: props.theme.primaryColor};
+	color: ${(props) => props.theme.navColor};
 	&:hover {
-		color: #333;
-		background-color: #33333355;
+		color: ${(props) =>
+			props.disabledStyle ? props.theme.navColor : props.theme.navColorHover};
+		background-color: ${(props) =>
+			props.disabledStyle
+				? props.theme.primaryColorDisabled
+				: props.theme.primaryColorHover};
 		cursor: pointer;
 	}
 `;

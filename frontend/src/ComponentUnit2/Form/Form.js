@@ -12,25 +12,22 @@ const Form = ({
 	handleChange,
 	loginErrors,
 	registerErrors,
+	disabled,
+	registerFailed,
+	loginFailed,
 }) => {
-	const onChange = (e) => {
-		const { name, value } = e.target;
-
+	const onChange = ({ target: { name, value } }) => {
 		handleChange(name, value);
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (showRegister) {
-			handleRegisterSubmit();
-		} else {
-			handleLoginSubmit();
-		}
+		showRegister ? handleRegisterSubmit() : handleLoginSubmit();
 	};
 
 	return (
 		<>
-			<h1>{showRegister ? 'Register ' : 'Login '}Form</h1>
+			<h1>{showRegister ? 'Register ' : 'Login '}</h1>
 			<StyledForm onSubmit={onSubmit}>
 				<label htmlFor='name'>Name</label>
 				<input
@@ -83,7 +80,10 @@ const Form = ({
 						<StyledError>{registerErrors.confirmPassword}</StyledError>
 					</>
 				)} */}
-				<StyledButton>{showRegister ? 'Register' : 'Login'}</StyledButton>
+				<StyledError>{showRegister ? registerFailed : loginFailed}</StyledError>
+				<StyledButton disabledStyle={disabled}>
+					{showRegister ? 'Register' : 'Login'}
+				</StyledButton>
 			</StyledForm>
 		</>
 	);

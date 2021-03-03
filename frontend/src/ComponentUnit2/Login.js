@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 import Form from './Form/Form';
 import StyledContainer from './StyledComponents/StyledContainer';
+import StyledLink from './StyledComponents/StyledLink';
 
 import loginSchema from './validation/loginSchema';
 import registerSchema from './validation/registerSchema';
@@ -39,6 +40,8 @@ const Login = (props) => {
 	);
 	const [loginFormValues, setLoginFormValues] = useState(initialLoginFormState);
 	const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
+	const [loginFailed, setLoginFailed] = useState('');
+	const [registerFailed, setRegisterFailed] = useState('');
 	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
@@ -59,7 +62,11 @@ const Login = (props) => {
 				localStorage.setItem('token', res.data.access_token);
 				history.push('/potluck');
 			})
-			.catch((err) => console.log(err));
+			.catch((err) =>
+				setLoginFailed(
+					'The name or password you entered is not correct. Please double-check and try again.'
+				)
+			);
 	};
 	const handleRegisterSubmit = () => {
 		console.log('register submit logic');
@@ -77,37 +84,43 @@ const Login = (props) => {
 				localStorage.setItem('scope', res.data.scope);
 				history.push('/potluck');
 			})
-			.catch((err) => console.log(err));
+			.catch((err) =>
+				setRegisterFailed(
+					'Registration failed. Please double-check your information and try again.'
+				)
+			);
 	};
 	const handleChange = (name, value) => {
-		if (showRegister) {
-			yup
-				.reach(registerSchema, name)
-				.validate(value)
-				.then(() => {
-					setRegisterErrors({ ...registerErrors, [name]: '' });
-				})
-				.catch((err) => {
-					setRegisterErrors({ ...registerErrors, [name]: err.errors });
-				});
-			setRegisterFormValues({ ...registerFormValues, [name]: value });
-		} else {
-			yup
-				.reach(loginSchema, name)
-				.validate(value)
-				.then(() => {
-					setLoginErrors({ ...loginErrors, [name]: '' });
-				})
-				.catch((err) => {
-					setLoginErrors({ ...loginErrors, [name]: err.errors });
-				});
-			setLoginFormValues({ ...loginFormValues, [name]: value });
-		}
+		const schema = showRegister ? registerSchema : loginSchema;
+		const formErrors = showRegister ? registerErrors : loginErrors;
+		const setErrors = showRegister ? setRegisterErrors : setLoginErrors;
+		const formValues = showRegister ? registerFormValues : loginFormValues;
+		const setFormValues = showRegister
+			? setRegisterFormValues
+			: setLoginFormValues;
+
+		yup
+			.reach(schema, name)
+			.validate(value)
+			.then(() => {
+				setErrors({ ...formErrors, [name]: '' });
+			})
+			.catch((err) => {
+				setErrors({ ...formErrors, [name]: err.errors });
+			});
+		setFormValues({ ...formValues, [name]: value });
 	};
 
 	const toggleShowRegister = () => {
 		setShowRegister(!showRegister);
 	};
+
+	useEffect(() => {
+		const schema = showRegister ? registerSchema : loginSchema;
+		const formValues = showRegister ? registerFormValues : loginFormValues;
+
+		schema.isValid(formValues).then((valid) => setDisabled(!valid));
+	}, [loginFormValues, registerFormValues, showRegister]);
 	return (
 		<StyledContainer>
 			<Form
@@ -119,10 +132,13 @@ const Login = (props) => {
 				handleChange={handleChange}
 				loginErrors={loginErrors}
 				registerErrors={registerErrors}
+				disabled={disabled}
+				loginFailed={loginFailed}
+				registerFailed={registerFailed}
 			/>
-			<a href='#' onClick={toggleShowRegister}>
+			<StyledLink href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
-			</a>
+			</StyledLink>
 		</StyledContainer>
 	);
 };
