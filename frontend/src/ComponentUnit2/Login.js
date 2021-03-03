@@ -6,6 +6,7 @@ import StyledContainer from './StyledComponents/StyledContainer';
 
 import loginSchema from './validation/loginSchema';
 import registerSchema from './validation/registerSchema';
+import { useHistory } from 'react-router-dom';
 
 const initialLoginFormState = {
 	name: '',
@@ -15,7 +16,7 @@ const initialRegisterFormState = {
 	name: '',
 	email: '',
 	password: '',
-	confirmPassword: '',
+	// confirmPassword: '',
 };
 
 const initialLoginErrors = {
@@ -26,7 +27,7 @@ const initialRegisterErrors = {
 	name: '',
 	email: '',
 	password: '',
-	confirmPassword: '',
+	// confirmPassword: '',
 };
 
 const initialDisabled = true;
@@ -41,9 +42,8 @@ const Login = (props) => {
 	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
+	const history = useHistory();
 	const handleLoginSubmit = () => {
-		console.log('login submit logic');
-		const newLogin = {};
 		axios
 			.post(
 				'https://potluck-tt11.herokuapp.com/login',
@@ -56,13 +56,28 @@ const Login = (props) => {
 				}
 			)
 			.then((res) => {
-				console.log(res.data);
 				localStorage.setItem('token', res.data.access_token);
+				history.push('/potluck');
 			})
 			.catch((err) => console.log(err));
 	};
 	const handleRegisterSubmit = () => {
 		console.log('register submit logic');
+		const newUser = {
+			username: registerFormValues.name,
+			password: registerFormValues.password,
+			primaryemail: registerFormValues.email,
+		};
+		axios
+			.post('https://potluck-tt11.herokuapp.com/createnewuser', newUser)
+			.then((res) => {
+				console.log('submit res:', res);
+				localStorage.setItem('access_token', res.data.access_token);
+				localStorage.setItem('token_type', res.data.token_type);
+				localStorage.setItem('scope', res.data.scope);
+				history.push('/potluck');
+			})
+			.catch((err) => console.log(err));
 	};
 	const handleChange = (name, value) => {
 		if (showRegister) {
