@@ -1,19 +1,22 @@
+import React from 'react';
+import CreatePotluck from './ComponentUnit3/CreatePotluck';
+import EditPotluck from './ComponentUnit3/EditPotluck';
 
-import React from 'react'
-import CreatePotluck from './ComponentUnit3/CreatePotluck'
-import EditPotluck from './ComponentUnit3/EditPotluck'
-import {Route, NavLink} from 'react-router-dom'
+import { Route, NavLink } from 'react-router-dom';
 import Login from './ComponentUnit2/Login';
+
 import Logout from './ComponentUnit3/Logout';
 import './ComponentUnit3/css/header.css'
 import PotluckInfo from './ComponentUnit3/PotluckInfo';
 import PrivateRoute from './ComponentUnit3/PrivateRoute';
 
+
 function App() {
-  return (
-    <div>
-      <div className="heading">
-            <h1>Potluck Planner</h1>
+	return (
+		<div>
+			<div className='heading'>
+				<h1>Potluck Planner</h1>
+
 
             <div className="nav-list">
                 <ul>
@@ -39,6 +42,7 @@ function App() {
       
     </div>
   );
+
 }
 
 export default App;
