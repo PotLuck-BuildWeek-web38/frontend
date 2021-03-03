@@ -13,6 +13,8 @@ const Form = ({
 	loginErrors,
 	registerErrors,
 	disabled,
+	registerFailed,
+	loginFailed,
 }) => {
 	const onChange = ({ target: { name, value } }) => {
 		handleChange(name, value);
@@ -78,6 +80,7 @@ const Form = ({
 						<StyledError>{registerErrors.confirmPassword}</StyledError>
 					</>
 				)} */}
+				<StyledError>{showRegister ? registerFailed : loginFailed}</StyledError>
 				<StyledButton disabledStyle={disabled}>
 					{showRegister ? 'Register' : 'Login'}
 				</StyledButton>

@@ -40,6 +40,8 @@ const Login = (props) => {
 	);
 	const [loginFormValues, setLoginFormValues] = useState(initialLoginFormState);
 	const [loginErrors, setLoginErrors] = useState(initialLoginErrors);
+	const [loginFailed, setLoginFailed] = useState('');
+	const [registerFailed, setRegisterFailed] = useState('');
 	const [registerErrors, setRegisterErrors] = useState(initialRegisterErrors);
 	const [disabled, setDisabled] = useState(initialDisabled);
 
@@ -60,7 +62,11 @@ const Login = (props) => {
 				localStorage.setItem('token', res.data.access_token);
 				history.push('/potluck');
 			})
-			.catch((err) => console.log(err));
+			.catch((err) =>
+				setLoginFailed(
+					'The name or password you entered is not correct. Please double-check and try again.'
+				)
+			);
 	};
 	const handleRegisterSubmit = () => {
 		console.log('register submit logic');
@@ -78,7 +84,11 @@ const Login = (props) => {
 				localStorage.setItem('scope', res.data.scope);
 				history.push('/potluck');
 			})
-			.catch((err) => console.log(err));
+			.catch((err) =>
+				setRegisterFailed(
+					'Registration failed. Please double-check your information and try again.'
+				)
+			);
 	};
 	const handleChange = (name, value) => {
 		const schema = showRegister ? registerSchema : loginSchema;
@@ -123,6 +133,8 @@ const Login = (props) => {
 				loginErrors={loginErrors}
 				registerErrors={registerErrors}
 				disabled={disabled}
+				loginFailed={loginFailed}
+				registerFailed={registerFailed}
 			/>
 			<StyledLink href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
