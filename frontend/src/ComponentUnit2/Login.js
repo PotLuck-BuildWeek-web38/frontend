@@ -81,29 +81,24 @@ const Login = (props) => {
 			.catch((err) => console.log(err));
 	};
 	const handleChange = (name, value) => {
-		if (showRegister) {
-			yup
-				.reach(registerSchema, name)
-				.validate(value)
-				.then(() => {
-					setRegisterErrors({ ...registerErrors, [name]: '' });
-				})
-				.catch((err) => {
-					setRegisterErrors({ ...registerErrors, [name]: err.errors });
-				});
-			setRegisterFormValues({ ...registerFormValues, [name]: value });
-		} else {
-			yup
-				.reach(loginSchema, name)
-				.validate(value)
-				.then(() => {
-					setLoginErrors({ ...loginErrors, [name]: '' });
-				})
-				.catch((err) => {
-					setLoginErrors({ ...loginErrors, [name]: err.errors });
-				});
-			setLoginFormValues({ ...loginFormValues, [name]: value });
-		}
+		const schema = showRegister ? registerSchema : loginSchema;
+		const formErrors = showRegister ? registerErrors : loginErrors;
+		const setErrors = showRegister ? setRegisterErrors : setLoginErrors;
+		const formValues = showRegister ? registerFormValues : loginFormValues;
+		const setFormValues = showRegister
+			? setRegisterFormValues
+			: setLoginFormValues;
+
+		yup
+			.reach(schema, name)
+			.validate(value)
+			.then(() => {
+				setErrors({ ...formErrors, [name]: '' });
+			})
+			.catch((err) => {
+				setErrors({ ...formErrors, [name]: err.errors });
+			});
+		setFormValues({ ...formValues, [name]: value });
 	};
 
 	const toggleShowRegister = () => {
@@ -111,14 +106,10 @@ const Login = (props) => {
 	};
 
 	useEffect(() => {
-		if (showRegister) {
-			console.log('checking');
-			registerSchema
-				.isValid(registerFormValues)
-				.then((valid) => setDisabled(!valid));
-		} else {
-			loginSchema.isValid(loginFormValues).then((valid) => setDisabled(!valid));
-		}
+		const schema = showRegister ? registerSchema : loginSchema;
+		const formValues = showRegister ? registerFormValues : loginFormValues;
+
+		schema.isValid(formValues).then((valid) => setDisabled(!valid));
 	}, [loginFormValues, registerFormValues, showRegister]);
 	return (
 		<StyledContainer>

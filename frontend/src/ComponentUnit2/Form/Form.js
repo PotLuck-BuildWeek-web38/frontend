@@ -14,19 +14,13 @@ const Form = ({
 	registerErrors,
 	disabled,
 }) => {
-	const onChange = (e) => {
-		const { name, value } = e.target;
-
+	const onChange = ({ target: { name, value } }) => {
 		handleChange(name, value);
 	};
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (showRegister) {
-			handleRegisterSubmit();
-		} else {
-			handleLoginSubmit();
-		}
+		showRegister ? handleRegisterSubmit() : handleLoginSubmit();
 	};
 
 	return (
