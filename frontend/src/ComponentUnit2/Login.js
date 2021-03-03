@@ -62,14 +62,13 @@ const Login = (props) => {
 				localStorage.setItem('token', res.data.access_token);
 				history.push('/potluck');
 			})
-			.catch((err) =>
+			.catch(() =>
 				setLoginFailed(
 					'The name or password you entered is not correct. Please double-check and try again.'
 				)
 			);
 	};
 	const handleRegisterSubmit = () => {
-		console.log('register submit logic');
 		const newUser = {
 			username: registerFormValues.name,
 			password: registerFormValues.password,
@@ -78,13 +77,12 @@ const Login = (props) => {
 		axios
 			.post('https://potluck-tt11.herokuapp.com/createnewuser', newUser)
 			.then((res) => {
-				console.log('submit res:', res);
 				localStorage.setItem('access_token', res.data.access_token);
 				localStorage.setItem('token_type', res.data.token_type);
 				localStorage.setItem('scope', res.data.scope);
 				history.push('/potluck');
 			})
-			.catch((err) =>
+			.catch(() =>
 				setRegisterFailed(
 					'Registration failed. Please double-check your information and try again.'
 				)

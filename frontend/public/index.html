@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+	<head>
+		<meta charset="utf-8" />
+		<!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="theme-color" content="#000000" />
+		<meta
+			name="description"
+			content="Web site created using create-react-app"
+		/>
+		<link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+		<link
+			rel="shortcut icon"
+			type="image/x-icon"
+			href="data:image/png;base64,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"
+		/>
+		<!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+		<link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		<!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,12 +29,12 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+		<title>Potluck Planner</title>
+	</head>
+	<body>
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+		<div id="root"></div>
+		<!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -39,5 +44,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+	</body>
 </html>
