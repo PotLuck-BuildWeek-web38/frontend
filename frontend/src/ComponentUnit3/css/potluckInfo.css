@@ -1,0 +1,19 @@
+h2{
+    margin: auto;
+    padding: 20px 40%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: oblique;
+    font-size: 25px;
+    color: royalblue;
+}
+.listOfUser{
+    display:inline-block;
+    margin: auto;
+    padding: 10px 40%;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+
+.user {
+    padding: 7px 0 0 0;
+}
