@@ -82,7 +82,7 @@ const Login = (props) => {
 				localStorage.setItem('access_token', res.data.access_token);
 				localStorage.setItem('token_type', res.data.token_type);
 				localStorage.setItem('scope', res.data.scope);
-				history.push('/potluck');
+				history.push('/search');
 			})
 			.catch((err) =>
 				setRegisterFailed(
