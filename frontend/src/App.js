@@ -24,7 +24,7 @@ function App() {
                         <NavLink exact to='/potluck-info'>Potluck Events</NavLink> 
                     </li>
                     <li>
-                        <NavLink exact to='/create'>Create a Potluck </NavLink>
+                        <NavLink exact to='/create'>Create</NavLink>
                     </li>
                     <li>
                         {/* {window.localStorage.token === undefined ? (null): ( */}
