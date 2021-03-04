@@ -9,7 +9,7 @@ const PotluckInfo = () => {
         //    .get('/users/getuserinfo')
            .get('/users/users')
            .then((response) => {
-               console.log(response)
+               console.log('my events ',response)
                setUser(response.data);
            })
            .catch((error) => {
