@@ -41,8 +41,9 @@ function EditPotluck() {
       axiosWithAuth().get(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`)
       .then(res=>{
         console.log(res)
-        const itemsArrToString = 
-        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time, organizer: res.data.organizer})
+        const itemsArr = res.data.items.map(obj=>obj.name)
+        const itemsArrToString = itemsArr.join(', ')
+        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time, organizer: res.data.organizer, items: itemsArrToString})
       })
       .catch(err=>console.log(err))
     },[])
