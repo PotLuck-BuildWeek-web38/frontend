@@ -47,7 +47,7 @@ function App() {
       <PrivateRoute exact path='/create' component={CreatePotluck}/>
       <Route exact path='/search' component={Search}/>
       <PrivateRoute exact path='/potluck/:id' component={Potluck}/>
-      <PrivateRoute exact path='/edit' component={EditPotluck}/>
+      <PrivateRoute exact path='/edit/:id' component={EditPotluck}/>
       <Route path='/logout' component={Logout}/>
       
     </div>

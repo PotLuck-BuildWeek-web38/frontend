@@ -14,23 +14,19 @@ margin: 0 15%;
 `
 
 function Search() {
-    const [users, setUsers] = useState([]);
+    const [potluckArray, setPotluckArray] = useState([]);
 
     useEffect(() => {
         axiosWithAuth()
-           .get('/users/users')
+           .get('https://potluck-tt11.herokuapp.com/potlucks/potlucks')
            .then((response) => {
-            //    console.log('users ', response)
-               setUsers(response.data);
+            //    console.log('potlucks ', response)
+               setPotluckArray(response.data);
            })
            .catch((error) => {
                console.error(error);
            })
     }, []);
-    
-    const potluckArray = []
-    users.forEach(user=>user.potlucks.forEach(obj=>potluckArray.push(obj.potluck)))
-    // console.log('potluckArray ',potluckArray)
 
 
     return (
@@ -41,7 +37,7 @@ function Search() {
             {potluckArray.length<1
             ? <h3>Loading...</h3>
             : potluckArray.map(potluck=>
-                <SearchCard potluck={potluck} />
+                <SearchCard key={potluck.potluckid} potluck={potluck} />
             )
             }
         </SearchDiv>
