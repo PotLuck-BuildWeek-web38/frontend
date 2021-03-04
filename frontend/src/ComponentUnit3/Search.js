@@ -34,8 +34,10 @@ function Search() {
 
 
     return (
+        <div style={{textAlign: 'center'}}>
+            <h2>Search Potlucks</h2>
         <SearchDiv>
-            <h2 style={{color: 'black'}}>Search Potlucks</h2>
+            
             {potluckArray.length<1
             ? <h3>Finding Potlucks</h3>
             : potluckArray.map(potluck=>
@@ -43,6 +45,7 @@ function Search() {
             )
             }
         </SearchDiv>
+        </div>
     )
 }
 

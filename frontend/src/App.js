@@ -10,6 +10,7 @@ import './ComponentUnit3/css/header.css'
 import PotluckInfo from './ComponentUnit3/PotluckInfo';
 import PrivateRoute from './ComponentUnit3/PrivateRoute';
 import Search from './ComponentUnit3/Search'
+import Potluck from './ComponentUnit3/PotLuck'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
       <PrivateRoute exact path='/myevents' component={PotluckInfo} />
       <Route exact path='/create' component={CreatePotluck}/>
       <Route exact path='/search' component={Search}/>
+      <Route exact path='/potluck/:id' component={Potluck}/>
       <Route exact path='/edit' component={EditPotluck}/>
       <Route path='/logout' component={Logout}/>
       
