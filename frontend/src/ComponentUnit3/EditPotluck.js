@@ -28,11 +28,24 @@ display: flex;
 flex-flow: row nowrap;
 justify-content: center;
 `
+const AddButton=styled.div`
+border: 2px solid #324903;
+background-color: #679707;
+color: white;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+margin-right: 5px;
+line-height: 15px;
+text-align: center;
+font-weight: bold;
+`
 
-const initialState = {name: '', location: '', date: '', time: '', organizer: '', items: ''}
+const initialState = {name: '', location: '', date: '', time: '', items: '', newItem: ''}
 
 function EditPotluck() {
     const [form, setForm] = useState(initialState)
+    const [potluckData, setPotluckData] = useState({})
 
     const history = useHistory()
     const {id} = useParams()
@@ -41,9 +54,10 @@ function EditPotluck() {
       axiosWithAuth().get(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`)
       .then(res=>{
         console.log(res)
+        setPotluckData(res.data)
         const itemsArr = res.data.items.map(obj=>obj.name)
         const itemsArrToString = itemsArr.join(', ')
-        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time, organizer: res.data.organizer, items: itemsArrToString})
+        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time, items: itemsArrToString})
       })
       .catch(err=>console.log(err))
     },[])
@@ -62,9 +76,9 @@ function EditPotluck() {
         return {itemid: Date.now(), name: item, guest: '', picked: false}
       })
       console.log(itemsArray)
-      const newPotluck = {name: form.name, location: form.location, date: form.date, time: form.time, organizer: form.organizer, items: itemsArray}
-      console.log(newPotluck)
-      axiosWithAuth().post('https://potluck-tt11.herokuapp.com/potlucks/potluck', newPotluck)
+      const editedPotluck = {...potluckData, name: form.name, location: form.location, date: form.date, time: form.time, items: itemsArray}
+      console.log('edited: ',editedPotluck)
+      axiosWithAuth().put(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`, editedPotluck)
         .then(res=>{
           console.log(res);
           history.push('/myevents')
@@ -72,6 +86,10 @@ function EditPotluck() {
         .catch(err=>console.log(err))
       
     }
+
+      const newItemClick = () => {
+        
+      }
 
     return (
         <ContainerDiv>
@@ -104,13 +122,14 @@ function EditPotluck() {
             value={form.time}
             placeholder='2:30PM'
             /></label>
-            <label>Items <input
+            <p style={{alignSelf: 'flex-start', marginLeft: '95px', maxWidth: '300px'}}>Items: {form.items}</p>
+            <div style={{display: 'flex'}}><AddButton onClick={newItemClick}>+</AddButton><input
             className='longInput'
             onChange={formChangeHandler}
-            name='items'
-            value={form.items}
-            placeholder='ham, soda, etc(seperated by comma)'
-            /></label>
+            name='newItem'
+            value={form.newItem}
+            placeholder='new item'
+            /></div>
             <button>Save Changes</button>
         </StyledForm>
         </ContainerDiv>
