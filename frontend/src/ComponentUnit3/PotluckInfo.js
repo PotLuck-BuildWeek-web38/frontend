@@ -40,22 +40,15 @@ const PotluckInfo = () => {
         
     }
 
-    const handleButtonInvite = (event) => {
-        
-        axiosWithAuth()
-                  .post('/potlucks/potluck/{potluckid}/addguest/{userid}', gusetEmail)
-                  .then((response) => {
-                      setGuestEmail(response.data);
-                      console.log(gusetEmail)
-                  })
-                  .catch((error) => {
-                      console.error(error);
-                  })
-       
+    const handleButtonInvite = (userPI) => {
+        history.push(`/invite/${userPI.potluckid}`)
     }
 
+    const handleEditbutton = (userPI) => {
+        history.push(`/edit/${userPI.potluckid}`)
+     }
+
     const handleDeleteButton= (userPI) => {
-        
         console.log(userPI);
         axiosWithAuth()
           .delete(`/potlucks/potluck/${userPI.potluckid}`)
@@ -66,7 +59,7 @@ const PotluckInfo = () => {
           .catch((error) => {
             console.error(error);
           })
-         }
+    }
 
     return(
         <>
@@ -99,25 +92,20 @@ const PotluckInfo = () => {
                                 </div>
                             </div>
                             <div className="buttons"> 
-                                <div className="inviteGuest">
-                                    <button onClick={handleButtonInvite}>Invite more guest</button>
+                                <div className="inviteGuest" onClick={() => handleButtonInvite(userPI)}>
+                                    <button>Invite more guest</button>
                                 </div>
-                                <div className="editInfo">
+                                <div className="editInfo" onClick={() => handleEditbutton(userPI)}>
                                     <button>Edit Potluck Information</button>
                                 </div>
                                 <div className="deleteEvent" onClick={() => handleDeleteButton(userPI)} >
                                     <button>Delete an Event</button>
                                 </div>
                             </div>
-
                         </div> ))
-                        
                     }
-                    
-               </div>
-               
-               
-           </div>
+                </div>
+            </div>
         </>
     )
 }
