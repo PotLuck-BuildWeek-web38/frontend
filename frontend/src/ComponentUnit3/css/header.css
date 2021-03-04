@@ -8,21 +8,26 @@ body {
     letter-spacing: 3px;
 }
 .heading h1{
-    margin-left: 5%;
+    text-align: center;
 }
 
 .nav-list{
     background-color: rgb(103, 151, 7);
+    display: flex;
+    justify-content: space-between;
+    /* height: 45px; */
 }
+
 .nav-list ul {
     list-style-type: none;
     display: flex;
+    justify-content: flex-start;
     margin: 0;
 }
 
+
 .nav-list a{
   float: left;
-  display: block;
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
@@ -35,4 +40,6 @@ body {
 .nav-list a:hover {
     background-color:rgb(138, 182, 51)
 }
-
+.logout {
+    margin-right: 30px;
+}

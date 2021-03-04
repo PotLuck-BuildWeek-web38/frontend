@@ -31,7 +31,9 @@ function App() {
                     <li>
                         <NavLink exact to='/myevents'>My Events</NavLink> 
                     </li>
-                    <li>
+                </ul>
+                <ul>
+                    <li className='logout'>
                         {/* {window.localStorage.token === undefined ? (null): ( */}
                             <NavLink to="/logout">Logout</NavLink>
                          {/* )} */}
