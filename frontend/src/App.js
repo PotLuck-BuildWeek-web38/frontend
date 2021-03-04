@@ -9,6 +9,8 @@ import Logout from './ComponentUnit3/Logout';
 import './ComponentUnit3/css/header.css'
 import PotluckInfo from './ComponentUnit3/PotluckInfo';
 import PrivateRoute from './ComponentUnit3/PrivateRoute';
+import Search from './ComponentUnit3/Search'
+import Potluck from './ComponentUnit3/PotLuck'
 
 
 function App() {
@@ -21,12 +23,18 @@ function App() {
             <div className="nav-list">
                 <ul>
                     <li>
-                        <NavLink exact to='/potluck-info'>Potluck Events</NavLink> 
+                        <NavLink exact to='/search'>Potlucks</NavLink>
                     </li>
                     <li>
                         <NavLink exact to='/create'>Create</NavLink>
+
                     </li>
                     <li>
+                        <NavLink exact to='/myevents'>My Events</NavLink> 
+                    </li>
+                </ul>
+                <ul>
+                    <li className='logout'>
                         {/* {window.localStorage.token === undefined ? (null): ( */}
                             <NavLink to="/logout">Logout</NavLink>
                          {/* )} */}
@@ -35,9 +43,11 @@ function App() {
             </div>
         </div>
       <Route exact path='/' component={Login}/>
-      <PrivateRoute exact path='/potluck-info' component={PotluckInfo} />
-      <Route exact path='/create' component={CreatePotluck}/>
-      <Route exact path='/edit' component={EditPotluck}/>
+      <PrivateRoute exact path='/myevents' component={PotluckInfo} />
+      <PrivateRoute exact path='/create' component={CreatePotluck}/>
+      <Route exact path='/search' component={Search}/>
+      <PrivateRoute exact path='/potluck/:id' component={Potluck}/>
+      <PrivateRoute exact path='/edit' component={EditPotluck}/>
       <Route path='/logout' component={Logout}/>
       
     </div>
