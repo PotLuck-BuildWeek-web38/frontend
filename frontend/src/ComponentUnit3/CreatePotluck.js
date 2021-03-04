@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
+import {useHistory} from 'react-router-dom'
 
 const StyledForm = styled.form`
 width: 600px;
@@ -28,22 +29,25 @@ flex-flow: row nowrap;
 justify-content: center;
 `
 
-const initialState = {name: '', location: '', date: '', time: '', organizer: '', items: []}
+const initialState = {name: '', location: '', date: '', time: '', organizer: '', items: ''}
 
 function CreatePotluck() {
     const [form, setForm] = useState(initialState)
     const [currUser, setCurrUser] = useState({})
     // const [formError, setFormError] = useState('')
+    const history = useHistory()
     
     useEffect(() => {
       axiosWithAuth().get('https://potluck-tt11.herokuapp.com/users/getuserinfo')
       .then(res=>{
-        console.log(res)
-        setCurrUser(res.data)})
+        // console.log(res)
+        setCurrUser(res.data)
+        setForm({...form, organizer: res.data.username})
+      })
       .catch(err=>console.log(err))
     },[])
 
-    console.log(currUser)
+    // console.log(currUser)
 
     const formChangeHandler = (e) => {
       setForm({...form,
@@ -52,14 +56,20 @@ function CreatePotluck() {
 
     const formSubmit = (e) => {
       e.preventDefault();
-      const userid = ''/* <---- needs to be created/defined */
-      const updatedUser = initialState /* <---- needs to be created/defined */
-      axios.put(`https://potluck-tt11.herokuapp.com/users/user/${userid}`, updatedUser)
-        .then((res) => {
-          console.log(res)
-        }).catch((err) => {
-          console.log(err)
+      const itemsStringArray = form.items.split(',').map(item=>item.trim())
+      const itemsArray = itemsStringArray.map(item=>{
+        return {itemid: Date.now(), name: item, guest: '', picked: false}
+      })
+      console.log(itemsArray)
+      const newPotluck = {name: form.name, location: form.location, date: form.date, time: form.time, organizer: form.organizer, items: itemsArray}
+      console.log(newPotluck)
+      axiosWithAuth().post('https://potluck-tt11.herokuapp.com/potlucks/potluck', newPotluck)
+        .then(res=>{
+          console.log(res);
+          history.push('/myevents')
         })
+        .catch(err=>console.log(err))
+      
     }
 
     return (
