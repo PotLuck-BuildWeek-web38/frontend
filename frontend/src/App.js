@@ -26,7 +26,8 @@ function App() {
                         <NavLink exact to='/search'>Potlucks</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to='/create'>Create Potluck</NavLink>
+                        <NavLink exact to='/create'>Create</NavLink>
+
                     </li>
                     <li>
                         <NavLink exact to='/myevents'>My Events</NavLink> 
