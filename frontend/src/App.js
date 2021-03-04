@@ -23,13 +23,13 @@ function App() {
             <div className="nav-list">
                 <ul>
                     <li>
-                        <NavLink exact to='/myevents'>My Events</NavLink> 
+                        <NavLink exact to='/search'>Potlucks</NavLink>
                     </li>
                     <li>
                         <NavLink exact to='/create'>Create Potluck</NavLink>
                     </li>
                     <li>
-                        <NavLink exact to='/search'>Search</NavLink>
+                        <NavLink exact to='/myevents'>My Events</NavLink> 
                     </li>
                     <li>
                         {/* {window.localStorage.token === undefined ? (null): ( */}
@@ -41,10 +41,10 @@ function App() {
         </div>
       <Route exact path='/' component={Login}/>
       <PrivateRoute exact path='/myevents' component={PotluckInfo} />
-      <Route exact path='/create' component={CreatePotluck}/>
+      <PrivateRoute exact path='/create' component={CreatePotluck}/>
       <Route exact path='/search' component={Search}/>
-      <Route exact path='/potluck/:id' component={Potluck}/>
-      <Route exact path='/edit' component={EditPotluck}/>
+      <PrivateRoute exact path='/potluck/:id' component={Potluck}/>
+      <PrivateRoute exact path='/edit' component={EditPotluck}/>
       <Route path='/logout' component={Logout}/>
       
     </div>

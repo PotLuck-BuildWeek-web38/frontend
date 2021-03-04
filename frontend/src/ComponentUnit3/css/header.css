@@ -7,6 +7,9 @@ body {
     font-size: 30px;
     letter-spacing: 3px;
 }
+.heading h1{
+    margin-left: 5%;
+}
 
 .nav-list{
     background-color: rgb(103, 151, 7);
@@ -30,6 +33,6 @@ body {
 }
 
 .nav-list a:hover {
-    color: rgb(145, 42, 24);
+    background-color:rgb(138, 182, 51)
 }
 

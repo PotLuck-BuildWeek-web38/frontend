@@ -39,7 +39,7 @@ function Search() {
         <SearchDiv>
             
             {potluckArray.length<1
-            ? <h3>Finding Potlucks</h3>
+            ? <h3>Loading...</h3>
             : potluckArray.map(potluck=>
                 <SearchCard potluck={potluck} />
             )
