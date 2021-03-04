@@ -111,7 +111,7 @@ function EditPotluck() {
             value={form.items}
             placeholder='ham, soda, etc(seperated by comma)'
             /></label>
-            <button>Create Potluck</button>
+            <button>Save Changes</button>
         </StyledForm>
         </ContainerDiv>
     )

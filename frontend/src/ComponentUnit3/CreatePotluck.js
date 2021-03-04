@@ -108,7 +108,7 @@ function CreatePotluck() {
             onChange={formChangeHandler}
             name='items'
             value={form.items}
-            placeholder='ham, soda, etc(seperated by comma)'
+            placeholder='burgers, buns, soda, etc(seperated by comma)'
             /></label>
             <button>Create Potluck</button>
         </StyledForm>
