@@ -2,6 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import './css/guest.css'
+import styled from 'styled-components'
+
+const BackgroundDiv = styled.div`
+width: 100vh;
+height: 100vh
+`
 
 const GuestInfo = () => {
     const [guest, setGuest] = useState([]);
@@ -45,6 +51,7 @@ const GuestInfo = () => {
    //potlucks/potluck/{potluckid}/addguest/{userid}
 
     return(
+        <BackgroundDiv>
         <div className="gi">
             <h2 className="h2">Invite Guest</h2>
             <div class='guestInfo'>
@@ -66,6 +73,7 @@ const GuestInfo = () => {
                 </form>
             </div>
         </div>
+        </BackgroundDiv>
     )
 
 }
