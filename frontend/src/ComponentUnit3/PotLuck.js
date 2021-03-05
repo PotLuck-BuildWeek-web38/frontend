@@ -16,6 +16,7 @@ margin: 0 15%;
 const PotluckDiv = styled.div`
 border: 3px solid #679707;
 border-radius: 20px;
+background-color: RGB(255,255,255, 0.85);
 width: 500px;
 display: flex;
 flex-flow: column nowrap;
@@ -40,7 +41,7 @@ function PotLuck() {
 	console.log(potluck)
 	return (
 		<Container>
-			<h2>{potluck.name}</h2>
+			<h2 style={{color: 'white'}}>{potluck.name}</h2>
 		<PotluckDiv>
 			<p>Location: {potluck.location}</p>
             <p>Date: {potluck.date}</p>
