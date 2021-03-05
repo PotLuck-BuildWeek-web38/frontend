@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {axiosWithAuth} from '../utils/axiosWithAuth'
+import axios from 'axios'
 import styled from 'styled-components'
 import SearchCard from './SearchCard'
 
@@ -17,7 +17,7 @@ function Search() {
     const [potluckArray, setPotluckArray] = useState([]);
 
     useEffect(() => {
-        axiosWithAuth()
+        axios
            .get('https://potluck-tt11.herokuapp.com/potlucks/potlucks')
            .then((response) => {
             //    console.log('potlucks ', response)
