@@ -48,6 +48,7 @@ const GuestInfo = () => {
         <div className="gi">
             <h2 className="h2">Invite Guest</h2>
             <div class='guestInfo'>
+                
                 <form onClick={handleSubmit}>
                     {guest.map(guestInfo => (
                             <div class='guest' key={guestInfo.userid}> 
