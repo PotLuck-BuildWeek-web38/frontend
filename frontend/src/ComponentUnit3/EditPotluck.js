@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {useHistory, useParams} from 'react-router-dom'
 
 const StyledForm = styled.form`
 width: 600px;
-height: 300px;
+height: auto;
 border: 3px solid gray;
 display: flex;
 flex-flow: column nowrap;
@@ -15,10 +14,12 @@ justify-content: space-evenly;
 margin: 20px;
 input{
     width: 400px;
-    margin-right: 50px
+    margin: 10px 50px 10px 5px;
+    
 }
 button{
   align-self: center;
+  margin-bottom: 10px;
 }
 `
 const ContainerDiv=styled.div`
@@ -28,11 +29,39 @@ display: flex;
 flex-flow: row nowrap;
 justify-content: center;
 `
+const AddButton=styled.div`
+border: 2px solid #324903;
+background-color: #679707;
+color: white;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+// margin-right: 5px;
+line-height: 15px;
+text-align: center;
+font-weight: bold;
+margin-top: 8px;
+`
+const DeleteButton=styled.div`
+border: 2px solid #5b0606;
+background-color: #960707;
+color: white;
+border-radius: 50%;
+width: 20px;
+height: 20px;
+margin-right: 5px;
+line-height: 15px;
+text-align: center;
+font-weight: bold;
+`
 
-const initialState = {name: '', location: '', date: '', time: '', organizer: '', items: ''}
+const initialState = {name: '', location: '', date: '', time: '', items: '', newItem: ''}
 
 function EditPotluck() {
     const [form, setForm] = useState(initialState)
+    const [potluckData, setPotluckData] = useState({})
+    const [currItems, setCurrItems] = useState([])
+    const [newItem, setNewItem] = useState({newItem: ''})
 
     const history = useHistory()
     const {id} = useParams()
@@ -41,9 +70,11 @@ function EditPotluck() {
       axiosWithAuth().get(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`)
       .then(res=>{
         console.log(res)
-        const itemsArr = res.data.items.map(obj=>obj.name)
-        const itemsArrToString = itemsArr.join(', ')
-        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time, organizer: res.data.organizer, items: itemsArrToString})
+        setPotluckData(res.data)
+        // const itemsArr = res.data.items.map(obj=>obj.name)
+        // const itemsArrToString = itemsArr.join(', ')
+        setForm({...form, name: res.data.name, location: res.data.location, date: res.data.date, time: res.data.time})
+        setCurrItems(res.data.items)
       })
       .catch(err=>console.log(err))
     },[])
@@ -55,6 +86,11 @@ function EditPotluck() {
         [e.target.name]: e.target.value})
     }
 
+    const itemChangeHandler = (e) => {
+      setNewItem({...newItem,
+        [e.target.name]: e.target.value})
+    }
+
     const formSubmit = (e) => {
       e.preventDefault();
       const itemsStringArray = form.items.split(',').map(item=>item.trim())
@@ -62,9 +98,9 @@ function EditPotluck() {
         return {itemid: Date.now(), name: item, guest: '', picked: false}
       })
       console.log(itemsArray)
-      const newPotluck = {name: form.name, location: form.location, date: form.date, time: form.time, organizer: form.organizer, items: itemsArray}
-      console.log(newPotluck)
-      axiosWithAuth().post('https://potluck-tt11.herokuapp.com/potlucks/potluck', newPotluck)
+      const editedPotluck = {...potluckData, name: form.name, location: form.location, date: form.date, time: form.time, items: itemsArray}
+      console.log('edited: ',editedPotluck)
+      axiosWithAuth().put(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`, editedPotluck)
         .then(res=>{
           console.log(res);
           history.push('/myevents')
@@ -73,45 +109,73 @@ function EditPotluck() {
       
     }
 
+      const newItemClick = () => {
+        axiosWithAuth()
+      }
+
+      const deleteItemClick = () => {
+        axiosWithAuth()
+      }
+
     return (
         <ContainerDiv>
         <StyledForm onSubmit={formSubmit}>
-            <label>Name <input
-            className='shortInput'
-            onChange={formChangeHandler}
-            name='name'
-            value={form.name}
-            placeholder='Easter Bash'
-            /></label>
-            <label>Location <input
-            className='shortInput'
-            onChange={formChangeHandler}
-            name='location'
-            value={form.location}
-            placeholder='125 Main st, Boston, MA 01884'
-            /></label>
-            <label>Date <input
-            className='shortInput'
-            onChange={formChangeHandler}
-            name='date'
-            value={form.date}
-            placeholder='April 4'
-            /></label>
+            <label>Name 
+              <input
+                className='shortInput'
+                onChange={formChangeHandler}
+                name='name'
+                value={form.name}
+                placeholder='Easter Bash'
+              /></label>
+            <label>Location 
+              <input
+                className='shortInput'
+                onChange={formChangeHandler}
+                name='location'
+                value={form.location}
+                placeholder='125 Main st, Boston, MA 01884'
+              /></label>
+            <label>Date 
+              <input
+                className='shortInput'
+                onChange={formChangeHandler}
+                name='date'
+                value={form.date}
+                placeholder='April 4'
+              /></label>
             <label>Time <input
-            className='shortInput'
-            onChange={formChangeHandler}
-            name='time'
-            value={form.time}
-            placeholder='2:30PM'
-            /></label>
-            <label>Items <input
-            className='longInput'
-            onChange={formChangeHandler}
-            name='items'
-            value={form.items}
-            placeholder='ham, soda, etc(seperated by comma)'
-            /></label>
-            <button>Save Changes</button>
+                className='shortInput'
+                onChange={formChangeHandler}
+                name='time'
+                value={form.time}
+                placeholder='2:30PM'
+              /></label>
+            <p style={{alignSelf: 'center', textDecoration: 'underline', fontSize: '1.25rem'}}>Items</p>
+            <div style={{display: 'flex', flexFlow: 'column nowrap', width: '440px', height: 'auto', alignSelf: 'flex-start', marginLeft: '113px'}}>
+                {currItems.length<1
+                ? <p>This potluck has no items! Add an item below.</p>
+                : currItems.map((obj) => {
+                  return (
+                  <div 
+                    style={{display: 'flex', height: '25px', alignItems: 'center', justifyContent: 'flex-start', marginBottom: '6px'}} 
+                    key={obj.itemid}
+                    >
+                      <DeleteButton onClick={deleteItemClick}>-</DeleteButton>
+                      <p>{obj.name}</p>
+                  </div>
+                )})
+                }
+            </div>
+            <div style={{display: 'flex'}}><AddButton onClick={newItemClick}>+</AddButton>
+              <input
+                className='longInput'
+                onChange={itemChangeHandler}
+                name='newItem'
+                value={newItem.newItem}
+                placeholder='new item'
+              /></div>
+              <button>Save Changes</button>
         </StyledForm>
         </ContainerDiv>
     )
