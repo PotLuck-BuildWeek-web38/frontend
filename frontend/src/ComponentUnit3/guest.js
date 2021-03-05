@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {axiosWithAuth} from '../utils/axiosWithAuth';
 import './css/guest.css'
 import styled from 'styled-components'
@@ -12,6 +12,10 @@ height: 100vh
 const GuestInfo = () => {
     const [guest, setGuest] = useState([]);
     const [checked, setChecked] = useState({});
+    // const [potluckid, setPotluckid] =useState("")
+    const param = useParams();
+
+    //console.log(param);
 
     useEffect(() => {
         axiosWithAuth()
@@ -34,13 +38,16 @@ const GuestInfo = () => {
 
     useEffect(() => {
         console.log("checked: ", checked);
-      }, [checked]); 
+        // console.log("potluckid: ", potluckid);
+        console.log(param.id);
+        //setPotluckid(potluckid)
+      }, [checked, param.id]); 
 
     const handleSubmit = (event) => {
         const {value} = event.target;
         console.log(value);
         axiosWithAuth()
-             .post(`potlucks/potluck/${value}/addguest/${value}`)
+             .post(`potlucks/potluck/${param.id}/addguest/${value}`)
              .then((response) => {
                  console.log(response)
              })
@@ -55,7 +62,7 @@ const GuestInfo = () => {
         <div className="gi">
             <h2 className="h2">Invite Guest</h2>
             <div class='guestInfo'>
-                
+
                 <form onClick={handleSubmit}>
                     {guest.map(guestInfo => (
                             <div class='guest' key={guestInfo.userid}> 
