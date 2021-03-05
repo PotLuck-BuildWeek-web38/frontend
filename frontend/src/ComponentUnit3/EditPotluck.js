@@ -151,7 +151,7 @@ function EditPotluck() {
                 value={form.time}
                 placeholder='2:30PM'
               /></label>
-            <p style={{alignSelf: 'center'}}>Items</p>
+            <p style={{alignSelf: 'center', textDecoration: 'underline', fontSize: '1.25rem'}}>Items</p>
             <div style={{display: 'flex', flexFlow: 'column nowrap', width: '440px', height: 'auto', alignSelf: 'flex-start', marginLeft: '113px'}}>
                 {currItems.length<1
                 ? <p>This potluck has no items! Add an item below.</p>
