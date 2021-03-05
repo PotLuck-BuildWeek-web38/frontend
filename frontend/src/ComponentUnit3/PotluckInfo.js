@@ -91,13 +91,13 @@ const PotluckInfo = () => {
                             </div>
                             <div className="buttons"> 
                                 <div className="inviteGuest" onClick={() => handleButtonInvite(userPI)}>
-                                    <button>Invite more guest</button>
+                                    <button>Add Guests</button>
                                 </div>
                                 <div className="editInfo" onClick={() => handleEditbutton(userPI)}>
-                                    <button>Edit Potluck Information</button>
+                                    <button>Edit Potluck</button>
                                 </div>
                                 <div className="deleteEvent" onClick={() => handleDeleteButton(userPI)} >
-                                    <button>Delete an Event</button>
+                                    <button>Delete</button>
                                 </div>
                             </div>
                         </div> ))
