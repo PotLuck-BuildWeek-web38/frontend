@@ -23,6 +23,10 @@ flex-flow: column nowrap;
 align-items: center;
 margin: 10px;
 `
+const BackgroundDiv = styled.div`
+width: 100vh;
+height: 100vh
+`
 
 const initialState = {date: '', time: '', location: '', name: '', organizer: '', potluckid: '', items: []}
 
@@ -40,6 +44,7 @@ function PotLuck() {
 
 	console.log(potluck)
 	return (
+		<BackgroundDiv>
 		<Container>
 			<h2 style={{color: 'white'}}>{potluck.name}</h2>
 		<PotluckDiv>
@@ -47,8 +52,9 @@ function PotLuck() {
             <p>Date: {potluck.date}</p>
             <p>Time: {potluck.time}</p>
 		</PotluckDiv>
-			<h3>Organizer: {potluck.organizer}</h3>
+			<h3 style={{color: 'white'}}>Organizer: {potluck.organizer}</h3>
 		</Container>
+		</BackgroundDiv>
 	)
 }
 
