@@ -61,6 +61,7 @@ const PotluckInfo = () => {
 
     return(
         <>
+        <div className='eventsContainer'>
             <div className="pinfo">
                {/* <h2>Potluck Information</h2> */}
                <div class='potluckInfo'>
@@ -104,6 +105,7 @@ const PotluckInfo = () => {
                     }
                 </div>
             </div>
+        </div>
         </>
     )
 }

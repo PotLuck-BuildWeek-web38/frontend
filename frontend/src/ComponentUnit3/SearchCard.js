@@ -10,6 +10,7 @@ display: flex;
 flex-flow: column nowrap;
 align-items: center;
 margin: 10px;
+background-color: RGB(255,255,255, 0.85)
 `
 
 function SearchCards(props) {

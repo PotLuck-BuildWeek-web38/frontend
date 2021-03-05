@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import styled from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import SearchCard from './SearchCard'
 
 const SearchDiv = styled.div`
@@ -31,7 +31,7 @@ function Search() {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <h2>Search Potlucks</h2>
+            <h2 style={{color: 'white'}}>Search Potlucks</h2>
         <SearchDiv>
             
             {potluckArray.length<1
