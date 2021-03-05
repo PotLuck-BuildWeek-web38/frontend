@@ -8,7 +8,9 @@ import Login from './ComponentUnit2/Login';
 import Logout from './ComponentUnit3/Logout';
 import './ComponentUnit3/css/header.css'
 import PotluckInfo from './ComponentUnit3/PotluckInfo';
+import GuestInfo from './ComponentUnit3/guest';
 import PrivateRoute from './ComponentUnit3/PrivateRoute';
+
 import Search from './ComponentUnit3/Search'
 import Potluck from './ComponentUnit3/PotLuck'
 
@@ -44,6 +46,7 @@ function App() {
         </div>
       <Route exact path='/' component={Login}/>
       <PrivateRoute exact path='/myevents' component={PotluckInfo} />
+      <PrivateRoute exact path='/invite/:id' component={GuestInfo}/>
       <PrivateRoute exact path='/create' component={CreatePotluck}/>
       <Route exact path='/search' component={Search}/>
       <PrivateRoute exact path='/potluck/:id' component={Potluck}/>
