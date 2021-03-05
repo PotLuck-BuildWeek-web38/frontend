@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {axiosWithAuth} from '../utils/axiosWithAuth'
 import {useHistory, useParams} from 'react-router-dom'
+import Items from './Items'
 
 const StyledForm = styled.form`
 width: 600px;
@@ -113,10 +114,6 @@ function EditPotluck() {
         axiosWithAuth()
       }
 
-      const deleteItemClick = () => {
-        axiosWithAuth()
-      }
-
     return (
         <ContainerDiv>
         <StyledForm onSubmit={formSubmit}>
@@ -157,13 +154,14 @@ function EditPotluck() {
                 ? <p>This potluck has no items! Add an item below.</p>
                 : currItems.map((obj) => {
                   return (
-                  <div 
-                    style={{display: 'flex', height: '25px', alignItems: 'center', justifyContent: 'flex-start', marginBottom: '6px'}} 
-                    key={obj.itemid}
-                    >
-                      <DeleteButton onClick={deleteItemClick}>-</DeleteButton>
-                      <p>{obj.name}</p>
-                  </div>
+                    <Items obj={obj} setCurrItems={setCurrItems} currItems={currItems} />
+                  // <div 
+                  //   style={{display: 'flex', height: '25px', alignItems: 'center', justifyContent: 'flex-start', marginBottom: '6px'}} 
+                  //   key={obj.itemid}
+                  //   >
+                  //     <DeleteButton onClick={deleteItemClick}>-</DeleteButton>
+                  //     <p>{obj.name}</p>
+                  // </div>
                 )})
                 }
             </div>
