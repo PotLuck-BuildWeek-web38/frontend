@@ -7,7 +7,9 @@ import Items from './Items'
 const StyledForm = styled.form`
 width: 600px;
 height: auto;
-border: 3px solid gray;
+border: 3px solid #679707;
+background-color: RGB(255,255,255, 0.85);
+
 display: flex;
 flex-flow: column nowrap;
 align-items: flex-end;
@@ -43,17 +45,9 @@ text-align: center;
 font-weight: bold;
 margin-top: 8px;
 `
-const DeleteButton=styled.div`
-border: 2px solid #5b0606;
-background-color: #960707;
-color: white;
-border-radius: 50%;
-width: 20px;
-height: 20px;
-margin-right: 5px;
-line-height: 15px;
-text-align: center;
-font-weight: bold;
+const BackgroundDiv = styled.div`
+width: 100vh;
+height: 100vh
 `
 
 const initialState = {name: '', location: '', date: '', time: '', items: '', newItem: ''}
@@ -118,6 +112,7 @@ function EditPotluck() {
       }
 
     return (
+      <BackgroundDiv>
         <ContainerDiv>
         <StyledForm onSubmit={formSubmit}>
             <label>Name 
@@ -179,6 +174,7 @@ function EditPotluck() {
               <button>Save Changes</button>
         </StyledForm>
         </ContainerDiv>
+      </BackgroundDiv>
     )
 }
 

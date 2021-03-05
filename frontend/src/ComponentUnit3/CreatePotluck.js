@@ -7,9 +7,10 @@ import {useHistory} from 'react-router-dom'
 const StyledForm = styled.form`
 width: 600px;
 height: 300px;
-border: 3px solid gray;
+border: 3px solid #679707;
 display: flex;
 flex-flow: column nowrap;
+background-color: RGB(255,255,255, 0.85);
 align-items: flex-end;
 justify-content: space-evenly;
 margin: 20px;
@@ -22,11 +23,11 @@ button{
 }
 `
 const ContainerDiv=styled.div`
-width: 100%;
-height: auto;
+width: 100vh;
+height: 100vh;
 display: flex;
-flex-flow: row nowrap;
-justify-content: center;
+flex-flow: column nowrap;
+align-items: center;
 `
 
 const initialState = {name: '', location: '', date: '', time: '', organizer: '', items: ''}
@@ -73,7 +74,9 @@ function CreatePotluck() {
     }
 
     return (
+      
         <ContainerDiv>
+          <h2 style={{color: 'white'}}>Create Potluck</h2>
         <StyledForm onSubmit={formSubmit}>
             <label>Name <input
             className='shortInput'

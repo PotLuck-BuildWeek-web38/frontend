@@ -8,6 +8,19 @@ import StyledLink from './StyledComponents/StyledLink';
 import loginSchema from './validation/loginSchema';
 import registerSchema from './validation/registerSchema';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components'
+
+const PotluckDiv = styled.div`
+border: 3px solid #679707;
+border-radius: 20px;
+width: 300px;
+display: flex;
+flex-flow: column nowrap;
+align-items: center;
+margin: 10px;
+background-color: RGB(255,255,255, 0.85);
+padding-bottom: 10px;
+`
 
 const initialLoginFormState = {
 	name: '',
@@ -120,7 +133,9 @@ const Login = (props) => {
 		schema.isValid(formValues).then((valid) => setDisabled(!valid));
 	}, [loginFormValues, registerFormValues, showRegister]);
 	return (
+		
 		<StyledContainer>
+			<PotluckDiv>
 			<Form
 				showRegister={showRegister}
 				handleLoginSubmit={handleLoginSubmit}
@@ -137,6 +152,7 @@ const Login = (props) => {
 			<StyledLink href='#' onClick={toggleShowRegister}>
 				{showRegister ? 'Back to login.' : "Don't have an account? Register."}
 			</StyledLink>
+			</PotluckDiv>
 		</StyledContainer>
 	);
 };
