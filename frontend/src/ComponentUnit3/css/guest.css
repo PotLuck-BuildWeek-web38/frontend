@@ -1,0 +1,19 @@
+.gi{
+        display: flex;
+        flex-flow: column wrap; 
+        align-items: center; 
+        justify-content:space-evenly; 
+        width: 25%;
+        margin: 5% 33%;
+        
+        border: 2px solid rgb(103, 151, 7);
+        border-radius: 20px;
+}
+
+.guestInfo{
+    margin: 2% 0;
+}
+
+.button{
+    margin: 10% 0;
+}

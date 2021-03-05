@@ -7,7 +7,7 @@ const PotluckInfo = () => {
     const [users, setUser] = useState([]);
     const [checked, setChecked] = useState(false);
     const history = useHistory();
-    const [gusetEmail, setGuestEmail] = useState([]);
+
     useEffect(() => {
         axiosWithAuth()
         //    .get('/users/getuserinfo')
@@ -25,7 +25,7 @@ const PotluckInfo = () => {
 
     const handleChange = (event) => {
         
-        const {type, value, checked} = event.target;
+        const {value, checked} = event.target;
         //const valueFoodItem = type ==="checkbox"? checked : value;
         setChecked(!checked)
             axiosWithAuth()
@@ -36,7 +36,6 @@ const PotluckInfo = () => {
                     //history.push('/potluck-info')
                  })
             console.log(checked);
-        
     }
 
     const handleButtonInvite = (userPI) => {
@@ -62,18 +61,18 @@ const PotluckInfo = () => {
 
     return(
         <>
-            <div>
-               <h2>Potluck Information</h2>
+            <div className="pinfo">
+               {/* <h2>Potluck Information</h2> */}
                <div class='potluckInfo'>
                     {users.map(userPI => (
                         <div class='user' key={userPI.id}>
-                            <h4>{userPI.name}</h4>
+                            <h3>{userPI.name}</h3>
                             <p>Location: {userPI.location}</p>
                             <p>Date & Time: {userPI.date}, {userPI.time}</p>
                             <p>Organized by : {userPI.organizer}</p>
                             <div>
                                 <p><strong>Food Item</strong></p>
-                                <div className='chackbox'>
+                                <div className='checkbox'>
                                    {userPI.items.map(foodItem => (
                                        <form key={foodItem.itemid}>
                                             <label>
@@ -84,9 +83,9 @@ const PotluckInfo = () => {
                                     ))}
                                 </div>
                                 <div className="guest">
-                                    <h4>Guests</h4>
+                                    <p><strong>Guests</strong></p>
                                     {userPI.users.map(guestName => (
-                                        <p>{guestName.username}</p>
+                                        <p>{guestName.user.username}</p>
                                     ))}
                                 </div>
                             </div>

@@ -1,19 +1,28 @@
-/* h2{
-    margin: auto;
-    padding: 20px 40%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-style: oblique;
-    font-size: 25px;
-    color: royalblue;
-} */
-.listOfUser{
-    display:inline-block;
-    margin: auto;
-    padding: 10px 40%;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 18px;
+.pinfo{
+    display: flex;
+    /* flex-flow: row wrap; */
+    /* align-items: space-evenly; */
+    justify-content:space-evenly; 
+    width: 45%;
+    margin: 5% 33%;
+    border: 2px solid rgb(103, 151, 7);
+    border-radius: 20px;
 }
 
-.user {
-    padding: 7px 0 0 0;
+.checkbox{
+    display: flex;
+    margin: 5% 0;
+}
+
+.buttons{
+    display: flex;
+    margin: 5% 0;   
+}
+
+.inviteGuest{
+    margin: 0 10px;
+}
+
+.editInfo{
+    margin: 0 10px;
 }
