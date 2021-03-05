@@ -62,7 +62,7 @@ function EditPotluck() {
     const [form, setForm] = useState(initialState)
     const [potluckData, setPotluckData] = useState({})
     const [currItems, setCurrItems] = useState([])
-    const [newItem, setNewItem] = useState({newItem: ''})
+    const [newItem, setNewItem] = useState({name: '', guest: '', picked: false})
 
     const history = useHistory()
     const {id} = useParams()
@@ -94,12 +94,12 @@ function EditPotluck() {
 
     const formSubmit = (e) => {
       e.preventDefault();
-      const itemsStringArray = form.items.split(',').map(item=>item.trim())
-      const itemsArray = itemsStringArray.map(item=>{
-        return {itemid: Date.now(), name: item, guest: '', picked: false}
-      })
-      console.log(itemsArray)
-      const editedPotluck = {...potluckData, name: form.name, location: form.location, date: form.date, time: form.time, items: itemsArray}
+      // const itemsStringArray = form.items.split(',').map(item=>item.trim())
+      // const itemsArray = itemsStringArray.map(item=>{
+      //   return {itemid: Date.now(), name: item, guest: '', picked: false}
+      // })
+      // console.log(itemsArray)
+      const editedPotluck = {...potluckData, name: form.name, location: form.location, date: form.date, time: form.time, items: []}
       console.log('edited: ',editedPotluck)
       axiosWithAuth().put(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`, editedPotluck)
         .then(res=>{
@@ -111,7 +111,10 @@ function EditPotluck() {
     }
 
       const newItemClick = () => {
-        axiosWithAuth()
+        const createdItem={items: [newItem]}
+        axiosWithAuth().put(`https://potluck-tt11.herokuapp.com/potlucks/potluck/${id}`, createdItem)
+        setCurrItems([...currItems, newItem])
+        setNewItem({name: '', guest: '', picked: false})
       }
 
     return (
@@ -169,8 +172,8 @@ function EditPotluck() {
               <input
                 className='longInput'
                 onChange={itemChangeHandler}
-                name='newItem'
-                value={newItem.newItem}
+                name='name'
+                value={newItem.name}
                 placeholder='new item'
               /></div>
               <button>Save Changes</button>
