@@ -5,7 +5,7 @@ import './css/guest.css'
 import styled from 'styled-components'
 
 const BackgroundDiv = styled.div`
-width: 100vh;
+width: 100%;
 height: 100vh
 `
 
